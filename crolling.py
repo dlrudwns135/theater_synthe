@@ -37,7 +37,7 @@ def spider(date, name):
     #             continue
     #         if moviediv.select("div > a > strong")[0].string.strip().find(name) != -1:
     #             cormovie.__setitem__(theater, moviediv)
-    #
+    # print(cormovie)
 
     for theater in lottetheaters:
         url = "http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx"
@@ -45,6 +45,8 @@ def spider(date, name):
         data = 'paramList={"MethodName": "GetPlaySequence", "channelType": "HO", "osType": "Chrome","osVersion": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36","playDate": "'+date[0:4]+'-'+date[4:6]+'-'+date[6:8]+'", "cinemaID": "'+str(theater)+'", "representationMovieCode": ""}'
 
         json_data = requests.post(url, headers = headers, data=data)
+        json_data = json_data.json()
+        print(json_data)
 
 
 
