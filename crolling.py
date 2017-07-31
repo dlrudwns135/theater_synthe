@@ -39,15 +39,24 @@ def spider(date, name):
     #             cormovie.__setitem__(theater, moviediv)
     # print(cormovie)
 
-    for theater in lottetheaters:
-        url = "http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx"
-        headers = {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
-        data = 'paramList={"MethodName": "GetPlaySequence", "channelType": "HO", "osType": "Chrome","osVersion": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36","playDate": "'+date[0:4]+'-'+date[4:6]+'-'+date[6:8]+'", "cinemaID": "'+str(theater)+'", "representationMovieCode": ""}'
+    # for theater in lottetheaters:
+    #     url = "http://www.lottecinema.co.kr/LCWS/Ticketing/TicketingData.aspx"
+    #     headers = {'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'}
+    #     data = 'paramList={"MethodName": "GetPlaySequence", "channelType": "HO", "osType": "Chrome","osVersion": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36","playDate": "'+date[0:4]+'-'+date[4:6]+'-'+date[6:8]+'", "cinemaID": "'+str(theater)+'", "representationMovieCode": ""}'
+    #
+    #     json_data = requests.post(url, headers = headers, data=data)
+    #     json_data = str(json_data.json()).replace("\'","\"").replace("None","\"\"")
+    #     print(json_data)
 
-        json_data = requests.post(url, headers = headers, data=data)
-        json_data = json_data.json()
-        print(json_data)
+    for theater in megatheaters:
+        url= "https://www.megabox.co.kr/pages/timetable/TimeTable_Cinema_List.jsp"
+        header = {'Accept':'text/html, */*; q=0.01',
+                  'Accept-Encoding' : 'gzip, deflate',
+                  'Content-Type':'application/x-www-form-urlencoded'};
+        data = 'cinemaCode='+str(theater)+'&playDate='+date[0:4]+'-'+date[4:6]+'-'+date[6:8]
 
+        source_code = requests.post(url, headers = header, data = data)
+        plain_text = source_code.text
+        print(plain_text)
 
-
-spider("20170714", "스파이더맨")
+spider("20170731", "덩케르크")
